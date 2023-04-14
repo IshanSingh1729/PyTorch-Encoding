@@ -24,13 +24,19 @@ def accuracy(output, target, topk=(1,)):
 
         _, pred = output.topk(maxk, 1, True, True)
         pred = pred.t()
-        correct = pred.eq(target.view(1, -1).expand_as(pred))
+        correct = pred.eq(target.reshape(1, -1).expand_as(pred))
 
         res = []
         for k in topk:
-            correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
+            correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
+
+def get_pixacc_miou(total_correct, total_label, total_inter, total_union):
+    pixAcc = 1.0 * total_correct / (np.spacing(1) + total_label)
+    IoU = 1.0 * total_inter / (np.spacing(1) + total_union)
+    mIoU = IoU.mean()
+    return pixAcc, mIoU
 
 def get_pixacc_miou(total_correct, total_label, total_inter, total_union):
     pixAcc = 1.0 * total_correct / (np.spacing(1) + total_label)
