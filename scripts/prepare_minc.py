@@ -20,7 +20,7 @@ def parse_args():
 
 def download_minc(path, overwrite=False):
     _AUG_DOWNLOAD_URLS = [
-        ('http://opensurfaces.cs.cornell.edu/static/minc/minc-2500.tar.gz', 'bcccbb3b1ab396ef540f024a5ba23eff54f7fe31')]
+        ('https://web.archive.org/web/20190605124855/http://opensurfaces.cs.cornell.edu/static/minc/minc-2500.tar.gz', 'bcccbb3b1ab396ef540f024a5ba23eff54f7fe31')]
     download_dir = os.path.join(path, 'downloads')
     mkdir(download_dir)
     for url, checksum in _AUG_DOWNLOAD_URLS:
